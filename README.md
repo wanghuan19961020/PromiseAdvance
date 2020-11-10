@@ -1552,7 +1552,7 @@ async function fn3_3() {
 ```
 # 第5章 JS 异步之宏队列与微队列
 ## 5.1 原理图
-![](JS宏队列与微队列原理图.png)
+![](https://github.com/wanghuan19961020/PromiseAdvance/blob/main/JS%E5%AE%8F%E9%98%9F%E5%88%97%E4%B8%8E%E5%BE%AE%E9%98%9F%E5%88%97%E5%8E%9F%E7%90%86%E5%9B%BE.png)
 ## 5.2 说明
 1. JS中用来存储待执行回掉函数的队列包含2个不同特定的队列
 2. 宏队列：用来保存待执行的宏任务（回调），比如：定时器回调/DOM事件回调/ajax回调
