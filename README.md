@@ -117,7 +117,7 @@ console.log("setTimeout之后")
     + 无论是成功还是失败，都会有一个结果数据
     + 成功的结果数据一般称为 `value`，失败的结果数据一般称为 `reason`
 ### 2.1.3 promise 的基本流程
-![](promise的基本流程.png)
+![](https://github.com/wanghuan19961020/PromiseAdvance/blob/main/promise%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B.png)
 ### 2.1.4 promise 的基本使用
 ```javascript
 // 1. 创建一个新的 promise
