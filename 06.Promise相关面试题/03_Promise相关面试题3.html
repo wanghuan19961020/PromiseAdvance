@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>03_Promise相关面试题3</title>
+</head>
+<body>
+<script type="text/javascript">
+  const first = () => (new Promise((resolve, reject) => {
+    console.log(3)
+    let p = new Promise((resolve, reject) => {
+      console.log(7)
+      setTimeout(()=>{
+        console.log(5)
+        resolve(6) // 状态已改变，无效
+      }, 0)
+      resolve(1)
+    })
+    resolve(2)
+    p.then((arg)=>{
+      console.log(arg)
+    })
+  }))
+  first().then((arg)=>{
+    console.log(arg)
+  })
+  console.log(4)
+  /*
+    宏队列： [ 5 ]
+    微队列： [ 1, 2 ]
+    3 7 4 // 同步执行
+    1 2 5 // 异步执行
+    输出序列：3 7 4 1 2 5
+  */
+</script>
+</body>
+</html>

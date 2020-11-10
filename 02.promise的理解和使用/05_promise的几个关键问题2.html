@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>05_promise的几个关键问题2</title>
+</head>
+<body>
+<script>
+/*
+  3. 改变 `promise` 状态和指定回调函数谁先谁后？
+    * 都有可能，正常情况下是先指定回调再改变状态，但也可以先改状态再指定回调
+    * 如何先改状态再指定回调？
+      + 在执行器中直接调用 `resolve()/reject()`
+      + 延迟更长时间才调用 `then()`
+    * 什么时候才能得到数据？
+      + 如果先指定回调，那当状态发生改变时，回调函数就会调用，得到数据
+      + 如果先改变状态，那当指定回调时，回调函数就会调用，得到数据
+ */
+new Promise(((resolve, reject) => {
+  setTimeout(()=>{
+    resolve(1) // 后改变的状态（同时指定数据），异步执行回调函数
+  }, 1000)
+})).then( // 先指定回调函数，保存当前指定的回调函数
+  value => {},
+  reason => {}
+)
+new Promise(((resolve, reject) => {
+  resolve(1) // 先改变的状态（同时指定数据）
+})).then( // 后指定回调函数，异步执行回调函数
+  value => {},
+  reason => {}
+)
+const p = new Promise(((resolve, reject) => {
+  setTimeout(()=>{
+    resolve(1) // 后改变的状态（同时指定数据），异步执行回调函数
+  }, 1000)
+}))
+setTimeout(()=>{
+  p.then(
+    value => {},
+    reason => {}
+  )
+}, 1100)
+</script>
+</body>
+</html>

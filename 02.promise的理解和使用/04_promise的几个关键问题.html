@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>04_promise的几个关键问题</title>
+</head>
+<body>
+<script>
+/*
+  1. 如何改变 `promise` 状态？
+    * `resolve(value)`：如果当前是 `pending` 就会变成 `resolved`
+    * `rejected(reason)`：如果当前是 `pending` 就会变成 `rejected`
+    * 抛出异常：如果当前是 `pending` 就会变成 `rejected`
+  2. 一个 `promise` 指定多个成功/失败回调函数，都会调用吗？
+    * 当 `promise` 改变为对应状态时都会调用
+ */
+
+const p = new Promise((resolve, reject) => {
+  // resolve(1) // promise 变为 resolved 成功状态
+  // reject(2) // promise 变为 rejected 成功状态
+  throw new Error("出错了") // 抛出异常，promise 变为 rejected 成功状态，reason为抛出的error
+})
+p.then(
+  value => {
+    console.log("value", value)
+  },
+  reason => {
+    console.log("reason", reason)
+  }
+)
+p.then(
+    value => {
+      console.log("value", value)
+    },
+    reason => {
+      console.log("reason2", reason)
+    }
+)
+  /*
+  reason Error: 出错了
+    at 04_promise的几个关键问题.html?_ijt=sumrlanirspdi97b31m1rurrfl:21
+    at new Promise (<anonymous>)
+    at 04_promise的几个关键问题.html?_ijt=sumrlanirspdi97b31m1rurrfl:18
+      04_promise的几个关键问题.html?_ijt=sumrlanirspdi97b31m1rurrfl:36
+  reason2 Error: 出错了
+    at 04_promise的几个关键问题.html?_ijt=sumrlanirspdi97b31m1rurrfl:21
+    at new Promise (<anonymous>)
+    at 04_promise的几个关键问题.html?_ijt=sumrlanirspdi97b31m1rurrfl:18
+   */
+</script>
+</body>
+</html>

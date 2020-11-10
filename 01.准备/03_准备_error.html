@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>03_准备_error</title>
+</head>
+<body>
+
+<script>
+/*
+  * 目标：进一步理解JS中的错误(Error)和错误处理
+    + mdn文档：https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Error
+  1. 错误的类型
+      + Error：所有错误的父类型
+      + ReferenceError：引用的变量不存在
+      + TypeError：数据类型不正确的错误
+      + RangeError：数据值不在其允许的范围内
+      + SyntaxError：语法错误
+  2. 错误处理
+      + 捕获错误： `try .. catch`
+      + 抛出错误： `throw error`
+  3. 错误对象
+      + `message`属性：错误相关信息
+      + `stack`属性：函数调用栈记录信息
+ */
+// 1. 常见的内置错误
+// 1）ReferenceError：引用的变量不存在
+// console.log(a) // Uncaught ReferenceError: a is not defined
+// console.log('-----') // 没有捕获 error，下面的 error 不会执行
+// 2）TypeError：数据类型不正确的错误
+// let b = null
+// console.log(b.xxx) // Uncaught TypeError: Cannot read property 'xxx' of null
+// let b = {}
+// console.log(b.xxx()) // Uncaught TypeError: b.xxx is not a function
+// 3）RangeError：数据值不在其允许的范围内
+// function fn() {
+//   fn()
+// }
+// fn() // Uncaught RangeError: Maximum call stack size exceeded
+// 4）SyntaxError：语法错误
+// const c = """" // Uncaught SyntaxError: Unexpected string
+
+// 2. 处理错误
+// 1）捕获错误
+// try {
+//   let d
+//   console.log(d.xxx)
+// } catch (err) {
+//   console.log(err) // TypeError: Cannot read property 'xxx' of undefined
+//   // console.log(err.message)
+//   // console.log(err.stack)
+// }
+// console.log("出错之后")
+/*
+  TypeError: Cannot read property 'xxx' of undefined
+    at 03_准备_error.html?_ijt=k9vcnjofj3tsmvai7hl2lctrk5:47
+  出错之后
+ */
+// 2）抛出错误
+function someThing() {
+  if (Date.now() % 2 === 1) {
+    console.log("当前时间为奇数，可以执行任务")
+  } else { // 如果时间为偶数，由调用者处理
+    throw new Error("当前时间为偶数，无法执行任务")
+  }
+}
+try {
+  someThing()
+} catch (error) {
+  alert(error.message)
+}
+
+</script>
+</body>
+</html>
